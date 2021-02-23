@@ -7,6 +7,8 @@
     let wasValidated = false;
 
     function validateEmail() {
+        // RFC 5322: http://emailregex.com/
+        // would replace if a validation libary is already used in project and when non-latin characters are used
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         isValid = re.test(String(value).toLowerCase());
         wasValidated = true;
