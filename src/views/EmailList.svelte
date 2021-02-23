@@ -54,9 +54,11 @@
         <button
             type="submit"
             id="button-add"
-            class="btn btn-primary"
-            disabled={!isValid}>Add to list</button
+            class="btn btn-primary "
+            disabled={!isValid}
         >
+            Add
+        </button>
         <div class="invalid-feedback">Please enter a valid e-mail address</div>
     </div>
 </form>
@@ -71,7 +73,7 @@
     form {
         margin: 2rem 0;
     }
-    .input-group button.btn.btn-primary {
+    #button-add {
         border-top-right-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
     }
