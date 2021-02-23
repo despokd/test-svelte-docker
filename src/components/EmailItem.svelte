@@ -9,7 +9,7 @@
 
 <li class="list-group-item">
     {email}<span class="actions"
-        ><button class="btn btn-danger btn-sm" on:click={remove}>Delete</button
+        ><button class="btn btn-danger btn-sm" on:click={remove}>Remove</button
         ></span
     >
 </li>

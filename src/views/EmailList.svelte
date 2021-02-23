@@ -25,7 +25,7 @@
         wasValidated = false;
     }
 
-    function deleteEmail(i) {
+    function removeEmail(i) {
         emails = [...emails.slice(0, i), ...emails.slice(i + 1)];
     }
 </script>
@@ -58,7 +58,7 @@
 
 <ul class="list-group">
     {#each emails as email, index}
-        <EmailItem {email} on:remove={() => deleteEmail(index)} />
+        <EmailItem {email} on:remove={() => removeEmail(index)} />
     {/each}
 </ul>
 
