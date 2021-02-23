@@ -36,6 +36,7 @@
 <form on:submit={addEmail}>
     <label for="inputEmail" class="form-label">New e-mail</label>
     <div class="input-group mb-3">
+        <!-- svelte-ignore a11y-autofocus -->
         <input
             type="text"
             id="inputEmail"
@@ -45,6 +46,7 @@
             placeholder="name@example.com"
             aria-describedby="button-add"
             autofocus
+            autocomplete
             bind:value
             on:input={validateEmail}
         />
