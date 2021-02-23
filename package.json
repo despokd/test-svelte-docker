@@ -1,10 +1,10 @@
 {
-  "name": "svelte-app",
+  "name": "test-svelte-docker",
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public"
+    "start": "sirv public --host"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
