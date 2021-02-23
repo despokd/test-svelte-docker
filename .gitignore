@@ -1,6 +1,6 @@
+/.vscode
 /node_modules/
 /public/build/
 /public/vendor/bootstrap
 
 .DS_Store
-.vscode
