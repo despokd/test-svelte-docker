@@ -26,9 +26,6 @@
     }
 
     function deleteEmail(i) {
-        // TODO
-        // delete emails[i];
-        //emails = emails;
         emails = [...emails.slice(0, i), ...emails.slice(i + 1)];
     }
 </script>
