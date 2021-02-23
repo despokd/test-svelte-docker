@@ -53,8 +53,10 @@ export default {
             targets: [{ 
                 src: 'node_modules/bootstrap/dist', 
                 dest: 'public/vendor/',
-				rename: 'bootstrap'
-            }]
+				rename: 'bootstrap',
+				liveCSS: false,
+            }],
+			copyOnce: true
         }),
 
 		// If you have external dependencies installed from
