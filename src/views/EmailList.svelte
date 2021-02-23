@@ -44,6 +44,7 @@
             class:is-invalid={!isValid && wasValidated}
             placeholder="name@example.com"
             aria-describedby="button-add"
+            autofocus
             bind:value
             on:input={validateEmail}
         />
