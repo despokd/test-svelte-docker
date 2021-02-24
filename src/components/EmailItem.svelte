@@ -8,7 +8,8 @@
 </script>
 
 <li class="list-group-item">
-    {email}<span class="actions">
+    <span class="text-break">{email}</span>
+    <span class="actions">
         <button
             class="btn btn-danger btn-sm"
             aria-label="Remove"
