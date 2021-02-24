@@ -3,7 +3,17 @@
 This creates a website with a dynamic e-mail list. It was built to try out [Svelte](https://svelte.dev/) and [Docker](https://www.docker.com/)
 
 ## TODO
+- Improve or replace e-mail regex (non-valid: `l@l.de`,  `#@d.de`,  `/=§$ö@k.de`; valid: `A-Za-z0-9.!#$%&'*+-/=?^_``{|}~`)
 - run docker container (`ERR_EMPTY_RESPONSE`, maybe link to main file index.html is missing)
+
+## Possible improvements
+- run docker with **ubuntu** and nginx, node
+- check if e-mail already exists and add related hints
+- add mailto-links
+- show valid hint
+- improve dark mode (replace white backgrounds)
+- add some beautiful page background
+- add imprint and github information/links
 
 ## Get started
 
