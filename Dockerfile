@@ -18,7 +18,7 @@ COPY ./public ./public
 # build production files of app
 RUN npm run-script build
 
-# server port (with nginx, this would be managed auto)
+# server port (with nginx, this would be managed automatically)
 EXPOSE 5000
 
 # server ip
