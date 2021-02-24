@@ -1,29 +1,37 @@
-# pulls a server image
-FROM ubuntu
+# pull a HOST OS
+FROM ubuntu:latest
 
-# production directory
+# directory in container, where app will be placed
 WORKDIR /usr/src/app
 
 # install nginx
 RUN apt-get update
 RUN apt-get install nginx -y
 
-# get dependencies + settings
+# pull Base OS
+FROM node:14-alpine
+
+# get config files from app and place them in container
 COPY rollup.config.js ./
 COPY package*.json ./
+
+# install dependencies from app
 RUN npm install
 
-# build app
+# get app and place in container
 COPY ./src ./src
 COPY ./public ./public
+
+# build production files of app
 RUN npm run-script build
 
-# hosting settings
+#PORT
 EXPOSE 5000
-ENV HOST=0.0.0.0
 
-# default params for container + start app
-CMD ["nginx","-g","daemon off;"]
+# server ip
+#ENV HOST=0.0.0.0
 
-# TODO server response: ERR_EMPTY_RESPONSE
-# maybe link to main file index.html is missing
+# start nginx
+CMD ["nginx","-g","daemon off;", "npm", "start"]
+
+#Error: Cannot find module '/nginx'
