@@ -1,21 +1,28 @@
-# pull saserver image
-FROM ubuntu
+# pull node.js web server as "Base OS" (Host OS not mandatory, because docker runs already linux for itself)
+FROM node:14-alpine
 
-# production directory
-WORKDIR /app
+# directory in container, where app will be placed
+WORKDIR /usr/src/app
 
-# install nginx
-RUN apt-get update
-RUN apt-get install nginx -y
+# get config files from app and place them in container
+COPY rollup.config.js ./
+COPY package*.json ./
 
-# use this directory
-COPY . .
+# install dependencies from app
+RUN npm install
 
-# standard port
-EXPOSE 81
+# get app and place in container
+COPY ./src ./src
+COPY ./public ./public
 
-# default params for container
-CMD ["nginx","-g","daemon off;"]
+# build production files of app
+RUN npm run-script build
 
-# TODO server response: ERR_EMPTY_RESPONSE
-# maybe link to main file index.html is missing
+# server port (with nginx, this would be managed auto)
+EXPOSE 5000
+
+# server ip
+ENV HOST=0.0.0.0
+
+# start app
+CMD [ "npm", "start" ]

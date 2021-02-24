@@ -1,0 +1,29 @@
+# pulls a server image
+FROM ubuntu
+
+# production directory
+WORKDIR /usr/src/app
+
+# install nginx
+RUN apt-get update
+RUN apt-get install nginx -y
+
+# get dependencies + settings
+COPY rollup.config.js ./
+COPY package*.json ./
+RUN npm install
+
+# build app
+COPY ./src ./src
+COPY ./public ./public
+RUN npm run-script build
+
+# hosting settings
+EXPOSE 5000
+ENV HOST=0.0.0.0
+
+# default params for container + start app
+CMD ["nginx","-g","daemon off;"]
+
+# TODO server response: ERR_EMPTY_RESPONSE
+# maybe link to main file index.html is missing
