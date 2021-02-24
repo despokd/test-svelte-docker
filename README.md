@@ -46,6 +46,6 @@ You can run the newly built app with `npm run start`. This uses [sirv](https://g
 
 ### With [Docker](https://www.docker.com/)
 ```docker
-docker build -t example/name .
-docker run -dp 81:01 example/name
+docker build -t customName .
+docker run -dp 5000:5000 customName
 ```
