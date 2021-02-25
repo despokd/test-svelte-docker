@@ -1,16 +1,26 @@
 <script>
     import EmailItem from "../components/EmailItem.svelte";
+    import isEmail from "validator/es/lib/isEmail";
 
     $: emails = [];
     let value = "";
     let isValid = false;
     let wasValidated = false;
+    let onlyUserFriendlyEmails = false;
 
     function validateEmail() {
-        // RFC 5322: http://emailregex.com/
-        // would replace if a validation libary is already used in project and when non-latin characters are used
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        isValid = re.test(String(value).toLowerCase());
+        // valid email chars: A-Za-z0-9.!#$%&'*+-/=?^_`{|}~@example.com (https://en.wikipedia.org/wiki/Email_address#Local-part)
+        let blacklistedChars = onlyUserFriendlyEmails
+            ? "!#$%&'*+/=?^_`{|}~"
+            : "";
+
+        isValid = isEmail(value, {
+            allow_utf8_local_part: false,
+            allow_ip_domain: false,
+            domain_specific_validation: true,
+            require_tld: true,
+            blacklisted_chars: blacklistedChars,
+        });
         wasValidated = true;
     }
 
@@ -33,6 +43,17 @@
 </script>
 
 <h1>E-mail list</h1>
+<div class="form-check form-switch">
+    <input
+        class="form-check-input"
+        type="checkbox"
+        id="switch"
+        bind:checked={onlyUserFriendlyEmails}
+        on:change={validateEmail}
+    />
+    <label class="form-check-label" for="switch"> Only readable e-mails </label>
+</div>
+
 <form on:submit={addEmail}>
     <label for="inputEmail" class="form-label">New e-mail</label>
     <div class="input-group mb-3">
@@ -59,7 +80,10 @@
         >
             Add
         </button>
-        <div class="invalid-feedback">Please enter a valid e-mail address</div>
+        <div class="invalid-feedback">
+            Please enter a valid {#if onlyUserFriendlyEmails}and readable
+            {/if}e-mail address
+        </div>
     </div>
 </form>
 
