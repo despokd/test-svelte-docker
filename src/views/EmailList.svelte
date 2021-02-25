@@ -7,20 +7,25 @@
     let isValid = false;
     let wasValidated = false;
     let onlyUserFriendlyEmails = false;
+    let blacklistedChars = "!#$%&'*+/=?^_`{|}~";
+    let minCharsLocal = 1;
 
     function validateEmail() {
         // valid email chars: A-Za-z0-9.!#$%&'*+-/=?^_`{|}~@example.com (https://en.wikipedia.org/wiki/Email_address#Local-part)
-        let blacklistedChars = onlyUserFriendlyEmails
-            ? "!#$%&'*+/=?^_`{|}~"
-            : "";
-
         isValid = isEmail(value, {
             allow_utf8_local_part: false,
             allow_ip_domain: false,
             domain_specific_validation: true,
             require_tld: true,
-            blacklisted_chars: blacklistedChars,
+            blacklisted_chars: onlyUserFriendlyEmails ? blacklistedChars : "",
         });
+
+        // require minimum length of local name, if readable emails is checked
+        if (onlyUserFriendlyEmails && isValid) {
+            isValid =
+                value.substr(0, value.indexOf("@")).length > minCharsLocal;
+        }
+
         wasValidated = true;
     }
 
@@ -43,7 +48,7 @@
 </script>
 
 <h1>E-mail list</h1>
-<div class="form-check form-switch">
+<div class="settings form-check form-switch">
     <input
         class="form-check-input"
         type="checkbox"
@@ -52,6 +57,16 @@
         on:change={validateEmail}
     />
     <label class="form-check-label" for="switch"> Only readable e-mails </label>
+    <small>
+        {#if onlyUserFriendlyEmails}
+            <dl>
+                <dt>Not allowed chars</dt>
+                <dd>{blacklistedChars}</dd>
+                <dt>Minimum local name chars</dt>
+                <dd>{minCharsLocal}</dd>
+            </dl>
+        {/if}
+    </small>
 </div>
 
 <form on:submit={addEmail}>
